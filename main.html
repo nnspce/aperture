@@ -16,6 +16,7 @@
   <!--FONTS-->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,700,700i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Chivo:400,400i,700|Playfair+Display:400,400i,700,700i|Roboto+Slab:400,700|Source+Code+Pro:400,700&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
 
   <!--FONT AWESOME-->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" crossorigin="anonymous">
@@ -104,7 +105,7 @@ body {
   width: 100%;
   height: 100vh;
   display: flex;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 nav {
@@ -575,12 +576,14 @@ aside li img:hover,
 
   #wrapper {
     margin-top: 200px;
+    height: auto; 
     overflow-y: auto;
     flex-direction: column-reverse;
   }
 
   #nnspc {
     z-index: 9999;
+    position: fixed !important;
   }
 }
   </style>
@@ -965,8 +968,7 @@ aside li img:hover,
     
   </main>
  
- 
-  <!--IMAGE NAVIGATION-->
+  
   <aside>
     <ul>
       <li>
@@ -994,7 +996,6 @@ aside li img:hover,
   </aside>
 </div>
 
-<!--SCRIPTS DON'T TOUCH UNLESS YOU KNOW WHAT YOU'RE DOING-->
 <script>
 $( document ).ready(function() {
 $('body').append(
@@ -1014,20 +1015,15 @@ $('body').append(
     $(this).addClass('active').siblings('aside li').removeClass('active');
   });
 
-  /*HASH SCRIPT*/
-  var hash = $.trim(window.location.hash);
-
-  if (hash) {
-    $('nav li[data-tab$="' + hash + '"]').trigger('click');
-  }
-
   /*POPUP*/
    /*opens popup on click*/
    $(".connections img").on('click', function() {
      var currentIndex = $(this).index() + 3;
-     var currentAttrValue = '#' + $(this).parents('.tab').attr('id');
+     var currentAttrValue = $(this).parents('.tab').index() + 1;
 
-     var currentLoc = currentAttrValue + " .popup:nth-of-type(" + currentIndex + ')';
+     var currentLoc = ".tab.current .popup:nth-of-type(" + currentIndex + ')';
+     
+     console.log(currentLoc);
 
      $(this).addClass('active').siblings('.connections img').removeClass('active');
 
